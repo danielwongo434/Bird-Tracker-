@@ -85,12 +85,18 @@
       color: #000;
       background: #ffffff;
       cursor: pointer;
-      transition: 0.2s ease;
+      transition: background 0.2s ease, color 0.2s ease, transform 0.1s ease,
+        box-shadow 0.15s ease;
     }
 
     .btn.primary {
       background: var(--accent);
       color: #ffffff;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
     }
 
     main {
@@ -99,11 +105,24 @@
       padding: 0 16px 24px;
     }
 
+    .section-title {
+      font-size: 1.4rem;
+      margin-top: 26px;
+      margin-bottom: 6px;
+    }
+
+    .section-sub {
+      margin: 0 0 10px;
+      max-width: 700px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
     .bird-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 18px;
-      margin-top: 20px;
+      margin-top: 18px;
     }
 
     .bird-card {
@@ -112,6 +131,9 @@
       border: 1px solid var(--border);
       overflow: hidden;
       box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
 
     .bird-card img {
@@ -119,6 +141,16 @@
       height: 200px;
       object-fit: cover;
       display: block;
+      transition: transform 0.35s ease;
+    }
+
+    .bird-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 14px 30px rgba(15,23,42,0.25);
+    }
+
+    .bird-card:hover img {
+      transform: scale(1.05);
     }
 
     .bird-body {
@@ -143,122 +175,114 @@
       color: var(--text-muted);
     }
 
-    .section-title {
-      font-size: 1.4rem;
-      margin-top: 26px;
-      margin-bottom: 6px;
-    }
-
     footer {
       text-align: center;
       padding: 12px;
       font-size: 0.8rem;
       color: #6b7280;
     }
-
-    /* Bounce animation */
-    .anim {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: bounceIn 0.7s forwards;
-      animation-delay: var(--delay);
-    }
-
-    @keyframes bounceIn {
-      0% { opacity: 0; transform: translateY(40px) scale(0.9); }
-      50% { opacity: 1; transform: translateY(-6px) scale(1.03); }
-      70% { transform: translateY(2px) scale(0.99); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
-    }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="badge anim" style="--delay: 0.05s;">Live Seasonal Migration</div>
-    <h1 class="anim" style="--delay: 0.12s;">
+    <div class="badge">Live Seasonal Migration</div>
+    <h1>
       MigrationWatch:
       <span class="accent">North American Birds</span>
     </h1>
-    <p class="subtitle anim" style="--delay: 0.22s;">
+    <p class="subtitle">
       A visual home for migration patterns, species profiles,
       and live data experiments using bird tracking tools.
     </p>
 
-    <div class="hero-buttons anim" style="--delay: 0.32s;">
+    <div class="hero-buttons">
       <a href="#birds" class="btn primary">View Species</a>
       <a href="#about" class="btn">About</a>
     </div>
   </header>
 
-
   <main>
-    <h2 class="section-title anim" style="--delay: 0.1s;" id="birds">Featured Migratory Birds</h2>
+    <section id="birds">
+      <h2 class="section-title">Featured Migratory Birds</h2>
+      <p class="section-sub">
+        Four iconic migrants that help tell the story of North American migration.
+        Hover over each card to get a closer look.
+      </p>
 
-    <div class="bird-grid">
+      <div class="bird-grid">
 
-      <!-- American Robin -->
-      <div class="bird-card anim" style="--delay: 0.15s;">
-        <img src="https://cdn.britannica.com/10/93110-050-12EA45EC/American-robin.jpg"
-             alt="American Robin" />
-        <div class="bird-body">
-          <div class="bird-name">American Robin</div>
-          <div class="bird-region">Across North America</div>
-          <div class="bird-text">
-            A common backyard bird whose red-orange breast and early dawn songs signal spring.
+        <!-- American Robin -->
+        <div class="bird-card">
+          <img
+            src="https://cdn.britannica.com/10/93110-050-12EA45EC/American-robin.jpg"
+            alt="American Robin"
+          />
+          <div class="bird-body">
+            <div class="bird-name">American Robin</div>
+            <div class="bird-region">Across North America</div>
+            <div class="bird-text">
+              A common backyard bird whose red-orange breast and early dawn songs signal spring.
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Snow Goose -->
-      <div class="bird-card anim" style="--delay: 0.22s;">
-        <img src="https://nas-national-prod.s3.amazonaws.com/styles/hero_cover_bird_page/s3/h_apa_2015_jerryamende_276298_snow_goose_kk_adult-white-morph.jpg?itok=ygQQDU2_"
-             alt="Snow Goose" />
-        <div class="bird-body">
-          <div class="bird-name">Snow Goose</div>
-          <div class="bird-region">Arctic ⇄ Southern US</div>
-          <div class="bird-text">
-            Massive white flocks migrate in spectacular waves across the continent every fall and spring.
+        <!-- Snow Goose -->
+        <div class="bird-card">
+          <img
+            src="https://nas-national-prod.s3.amazonaws.com/styles/hero_cover_bird_page/s3/h_apa_2015_jerryamende_276298_snow_goose_kk_adult-white-morph.jpg?itok=ygQQDU2_"
+            alt="Snow Goose"
+          />
+          <div class="bird-body">
+            <div class="bird-name">Snow Goose</div>
+            <div class="bird-region">Arctic ⇄ Southern US</div>
+            <div class="bird-text">
+              Massive white flocks migrate in spectacular waves across the continent every fall and spring.
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Sandhill Crane -->
-      <div class="bird-card anim" style="--delay: 0.30s;">
-        <img src="https://optimise2.assets-servd.host/steadfast-tern/production/sandhill-crane.jpg?w=1200&h=900&q=80&auto=format&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5&dm=1676907192&s=69759fef6d967ebb5c152dcb9bd530e3"
-             alt="Sandhill Crane" />
-        <div class="bird-body">
-          <div class="bird-name">Sandhill Crane</div>
-          <div class="bird-region">Great Plains ⇄ Gulf Coast & Mexico</div>
-          <div class="bird-text">
-            Known for their bugling calls and huge migratory gatherings at key wetlands.
+        <!-- Sandhill Crane -->
+        <div class="bird-card">
+          <img
+            src="https://optimise2.assets-servd.host/steadfast-tern/production/sandhill-crane.jpg?w=1200&h=900&q=80&auto=format&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5&dm=1676907192&s=69759fef6d967ebb5c152dcb9bd530e3"
+            alt="Sandhill Crane"
+          />
+          <div class="bird-body">
+            <div class="bird-name">Sandhill Crane</div>
+            <div class="bird-region">Great Plains ⇄ Gulf Coast & Mexico</div>
+            <div class="bird-text">
+              Known for their bugling calls and huge migratory gatherings at key wetlands.
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Canada Goose -->
-      <div class="bird-card anim" style="--delay: 0.38s;">
-        <img src="https://tse1.mm.bing.net/th/id/OIP.za-wH_gRXyfiDgZSzdL7WQHaE8?rs=1&pid=ImgDetMain&o=7&rm=3"
-             alt="Canada Goose" />
-        <div class="bird-body">
-          <div class="bird-name">Canada Goose</div>
-          <div class="bird-region">Canada ⇄ USA</div>
-          <div class="bird-text">
-            Famous for V-shaped flights and loud honks—one of the most recognized migrants.
+        <!-- Canada Goose -->
+        <div class="bird-card">
+          <img
+            src="https://tse1.mm.bing.net/th/id/OIP.za-wH_gRXyfiDgZSzdL7WQHaE8?rs=1&pid=ImgDetMain&o=7&rm=3"
+            alt="Canada Goose"
+          />
+          <div class="bird-body">
+            <div class="bird-name">Canada Goose</div>
+            <div class="bird-region">Canada ⇄ USA</div>
+            <div class="bird-text">
+              Famous for V-shaped flights and loud honks—one of the most recognized migrants.
+            </div>
           </div>
         </div>
+
       </div>
+    </section>
 
-    </div>
-
-
-    <h2 class="section-title anim" style="--delay: 0.4s;" id="about">About This Project</h2>
-    <p class="subtitle anim" style="--delay: 0.46s;">
-      This site will evolve into a real-time migration tracker using live data sources
-      like BirdCast, radar signals, and curated species data. Future pages will include
-      live maps, migration forecasts, and regional status reports.
-    </p>
-
+    <section id="about">
+      <h2 class="section-title">About This Project</h2>
+      <p class="section-sub">
+        This is version 1: a clean visual landing page for a bird migration tracker.
+        Future versions will add live migration maps, data-powered dashboards, and
+        species-level status by season and region.
+      </p>
+    </section>
   </main>
 
   <footer>
