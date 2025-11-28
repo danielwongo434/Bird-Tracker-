@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>MigrationWatch – Live Radar View</title>
+  <title>MigrationWatch – Live Weather & Radar</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
@@ -61,18 +61,6 @@
       color: #111827;
     }
 
-    h1 {
-      margin: 14px 0 4px;
-      font-size: 1.6rem;
-    }
-
-    .subtitle {
-      margin: 0;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      max-width: 650px;
-    }
-
     main {
       max-width: 1100px;
       margin: 0 auto;
@@ -89,6 +77,18 @@
       border: 1px solid var(--accent);
       color: var(--accent);
       margin-bottom: 6px;
+    }
+
+    h1 {
+      margin: 6px 0 4px;
+      font-size: 1.4rem;
+    }
+
+    .subtitle {
+      margin: 0 0 10px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      max-width: 720px;
     }
 
     .card {
@@ -134,12 +134,6 @@
       color: #6b7280;
     }
 
-    @media (max-width: 768px) {
-      .radar-wrapper iframe {
-        height: 420px;
-      }
-    }
-
     .btn {
       display: inline-flex;
       align-items: center;
@@ -161,12 +155,18 @@
       transform: translateY(-1px);
       box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
     }
+
+    @media (max-width: 768px) {
+      .radar-wrapper iframe {
+        height: 420px;
+      }
+    }
   </style>
 </head>
 <body>
   <header>
     <div class="top-bar">
-      <div class="logo">MigrationWatch: <span>Bird Radar</span></div>
+      <div class="logo">MigrationWatch: <span>Live Weather & Radar</span></div>
       <nav>
         <a href="index.html">Home</a>
         <a href="radar.html"><strong>Live Radar</strong></a>
@@ -177,46 +177,40 @@
   <main>
     <div class="card">
       <span class="badge">Live map</span>
-      <h2>Weather Radar View for Bird Migration Nights</h2>
-      <p>
-        This page embeds a live weather radar map. At night, especially during spring and fall,
-        some of the echoes on radar are not rain but huge flocks of migrating birds.
-        Tools like BirdCast use this kind of data (plus modeling) to estimate migration intensity.
-      </p>
-      <p>
-        Use this radar as a rough guide to where the atmosphere is active. On clear, calm nights
-        with widespread radar reflectivity and little rain, a lot of that “clutter” can be birds
-        passing overhead.
+      <h1>Weather & Radar Layer</h1>
+      <p class="subtitle">
+        This live map shows current weather patterns and radar echoes. During peak migration
+        seasons, some of the nighttime radar “clutter” in clear skies can actually be birds
+        moving at altitude.
       </p>
     </div>
 
     <div class="radar-wrapper">
-      <!-- Live US composite radar (if this ever stops working, you can swap to another radar source) -->
+      <!-- Live global weather / radar style embed -->
       <iframe
-        src="https://radar.weather.gov/?settings=v1_eyJhbmltYXRpb25TcGVlZCI6MTAwMCwiYXJlYU9wYWNpdHkiOjkwLCJjb2xvcjEiOiJSMCIsImNvbG9yMiI6IlIwIiwiY29sb3IzIjoiTTAiLCJjb2xvcjQiOiJHMCIsImxhdCI6MzkuNSwibG9uIjotOTUuNSwibWFwT3BhY2l0eSI6MTAwLCJtYXhab29tIjoxMSwicmFkYXJTb3VyY2UiOiJjb21wb3NpdGUiLCJ0aW1lZnJhbWUiOiJyYWRhciIsInVuaXRzIjoiYmluYXJ5In0="
-        title="US Radar Composite"
+        src="https://embed.windy.com/embed2.html?lat=39.0&lon=-96.0&detailLat=39.0&detailLon=-96.0&width=100%25&height=600&zoom=4&level=surface&overlay=radar&product=radar&menu=&message=&marker=&calendar=&pressure=&type=map&location=coordinates&detail=&metricWind=mph&metricTemp=%C2%B0F"
+        title="Live Weather & Radar Map"
         loading="lazy"
       ></iframe>
     </div>
 
     <div class="card">
-      <h2>How to read this for birds</h2>
+      <h2>How this relates to bird migration</h2>
       <p>
-        On nights with strong migration, you’ll often see broad, fuzzy-looking radar signals
-        blooming after sunset and fading toward dawn. These can be birds taking off, flying
-        at altitude, and then dropping out of the air before sunrise.
+        Bird migration is tightly linked to weather: winds, fronts, and clear skies can all
+        help or hinder birds on the move. By watching radar and weather layers together, you
+        can start to see when conditions are right for big migration nights.
       </p>
       <p>
-        This project is about connecting that kind of real-world data with species profiles and
-        educational tools. Future versions may overlay migration forecasts, wind fields, and
-        species-specific timing.
+        Future versions of MigrationWatch can layer species data, migration forecasts, and
+        seasonal summaries on top of views like this.
       </p>
       <a href="index.html" class="btn">← Back to species page</a>
     </div>
   </main>
 
   <footer>
-    © <span id="year"></span> MigrationWatch • Live radar view
+    © <span id="year"></span> MigrationWatch • Live weather & radar
   </footer>
 
   <script>
