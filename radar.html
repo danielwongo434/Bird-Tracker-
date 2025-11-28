@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MigrationWatch – Live Radar View</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #f4f4f5;
+      --card: #ffffff;
+      --border: #e5e7eb;
+      --accent: #22c55e;
+      --text-main: #111827;
+      --text-muted: #4b5563;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: #f3f4f6;
+      color: var(--text-main);
+    }
+
+    header {
+      padding: 18px 16px 12px;
+      border-bottom: 1px solid #e5e7eb;
+      background: #ffffff;
+    }
+
+    .top-bar {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    nav a {
+      font-size: 0.9rem;
+      text-decoration: none;
+      color: #4b5563;
+      margin-left: 10px;
+    }
+
+    nav a:hover {
+      color: #111827;
+    }
+
+    h1 {
+      margin: 14px 0 4px;
+      font-size: 1.6rem;
+    }
+
+    .subtitle {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      max-width: 650px;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 14px 16px 22px;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 12px 14px 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      margin-bottom: 14px;
+    }
+
+    .card h2 {
+      margin: 6px 0 4px;
+      font-size: 1.1rem;
+    }
+
+    .card p {
+      margin: 4px 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .radar-wrapper {
+      margin-top: 12px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid #d1d5db;
+      box-shadow: 0 12px 30px rgba(15,23,42,0.25);
+      background: #000;
+    }
+
+    .radar-wrapper iframe {
+      width: 100%;
+      height: 550px;
+      border: none;
+      display: block;
+    }
+
+    footer {
+      text-align: center;
+      padding: 12px;
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    @media (max-width: 768px) {
+      .radar-wrapper iframe {
+        height: 420px;
+      }
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-decoration: none;
+      border: 1px solid var(--accent);
+      color: #000;
+      background: #ffffff;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, transform 0.1s ease,
+        box-shadow 0.15s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="top-bar">
+      <div class="logo">MigrationWatch: <span>Bird Radar</span></div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="radar.html"><strong>Live Radar</strong></a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="card">
+      <span class="badge">Live map</span>
+      <h2>Weather Radar View for Bird Migration Nights</h2>
+      <p>
+        This page embeds a live weather radar map. At night, especially during spring and fall,
+        some of the echoes on radar are not rain but huge flocks of migrating birds.
+        Tools like BirdCast use this kind of data (plus modeling) to estimate migration intensity.
+      </p>
+      <p>
+        Use this radar as a rough guide to where the atmosphere is active. On clear, calm nights
+        with widespread radar reflectivity and little rain, a lot of that “clutter” can be birds
+        passing overhead.
+      </p>
+    </div>
+
+    <div class="radar-wrapper">
+      <!-- Live US composite radar (if this ever stops working, you can swap to another radar source) -->
+      <iframe
+        src="https://radar.weather.gov/?settings=v1_eyJhbmltYXRpb25TcGVlZCI6MTAwMCwiYXJlYU9wYWNpdHkiOjkwLCJjb2xvcjEiOiJSMCIsImNvbG9yMiI6IlIwIiwiY29sb3IzIjoiTTAiLCJjb2xvcjQiOiJHMCIsImxhdCI6MzkuNSwibG9uIjotOTUuNSwibWFwT3BhY2l0eSI6MTAwLCJtYXhab29tIjoxMSwicmFkYXJTb3VyY2UiOiJjb21wb3NpdGUiLCJ0aW1lZnJhbWUiOiJyYWRhciIsInVuaXRzIjoiYmluYXJ5In0="
+        title="US Radar Composite"
+        loading="lazy"
+      ></iframe>
+    </div>
+
+    <div class="card">
+      <h2>How to read this for birds</h2>
+      <p>
+        On nights with strong migration, you’ll often see broad, fuzzy-looking radar signals
+        blooming after sunset and fading toward dawn. These can be birds taking off, flying
+        at altitude, and then dropping out of the air before sunrise.
+      </p>
+      <p>
+        This project is about connecting that kind of real-world data with species profiles and
+        educational tools. Future versions may overlay migration forecasts, wind fields, and
+        species-specific timing.
+      </p>
+      <a href="index.html" class="btn">← Back to species page</a>
+    </div>
+  </main>
+
+  <footer>
+    © <span id="year"></span> MigrationWatch • Live radar view
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
