@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MigrationWatch – North American Bird Migration</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #020617;
+      --card: #020617;
+      --border: #22c55e33;
+      --accent: #22c55e;
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #22c55e11 0, #020617 52%, #000 100%);
+      color: var(--text-main);
+    }
+
+    header {
+      padding: 28px 16px 18px;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .accent {
+      color: var(--accent);
+    }
+
+    .subtitle {
+      margin: 10px auto 0;
+      max-width: 640px;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .hero-buttons {
+      margin-top: 18px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, transform 0.1s ease;
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      color: #020617;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      background: var(--accent);
+      color: #020617;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 16px 24px;
+    }
+
+    .hero-visual {
+      margin-top: 26px;
+      padding: 14px 16px 18px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: linear-gradient(135deg, #020617 0, #020617 50%, #0b1220 100%);
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
+      gap: 16px;
+      align-items: center;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.9);
+    }
+
+    .hero-text {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .hero-migration {
+      font-size: 0.85rem;
+      color: #bfdbfe;
+      margin-top: 8px;
+    }
+
+    .hero-glow {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: radial-gradient(circle at 20% 0%, #22c55e33, transparent 55%),
+                  radial-gradient(circle at 80% 100%, #38bdf833, transparent 55%),
+                  #020617;
+      min-height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-glow::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(
+        120deg,
+        transparent 0,
+        rgba(34, 197, 94, 0.33) 30%,
+        transparent 60%,
+        rgba(56, 189, 248, 0.33) 85%,
+        transparent 100%
+      );
+      opacity: 0.18;
+      mix-blend-mode: screen;
+    }
+
+    .hero-metric {
+      position: relative;
+      text-align: center;
+      z-index: 1;
+    }
+
+    .hero-metric-big {
+      font-size: 2.1rem;
+      font-weight: 700;
+    }
+
+    .hero-metric-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .hero-metric-sub {
+      font-size: 0.8rem;
+      color: #a5b4fc;
+      margin-top: 4px;
+    }
+
+    .section-title {
+      margin-top: 32px;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    .section-sub {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .bird-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 14px;
+    }
+
+    .bird-card {
+      background: var(--card);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bird-card img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      display: block;
+      filter: saturate(1.1);
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .bird-card:hover img {
+      transform: scale(1.04);
+      filter: saturate(1.2) contrast(1.05);
+    }
+
+    .bird-body {
+      padding: 10px 12px 12px;
+      font-size: 0.9rem;
+    }
+
+    .bird-name {
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .bird-region {
+      font-size: 0.8rem;
+      color: #a5b4fc;
+      margin-bottom: 6px;
+    }
+
+    .bird-text {
+      font-size: 0.87rem;
+      color: var(--text-muted);
+    }
+
+    footer {
+      text-align: center;
+      padding: 12px 16px 18px;
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    /* ⚡ Animated text / elements */
+    .anim {
+      opacity: 0;
+      transform: translateY(20px) scale(0.98);
+      animation: bounceIn 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+      animation-delay: var(--delay, 0s);
+    }
+
+    @keyframes bounceIn {
+      0% {
+        opacity: 0;
+        transform: translateY(40px) scale(0.9);
+      }
+      50% {
+        opacity: 1;
+        transform: translateY(-6px) scale(1.03);
+      }
+      70% {
+        transform: translateY(2px) scale(0.99);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-visual {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="badge anim" style="--delay: 0.05s;">Live Seasonal Migration</div>
+    <h1 class="anim" style="--delay: 0.12s;">
+      MigrationWatch:
+      <span class="accent">North American Birds</span>
+    </h1>
+    <p class="subtitle anim" style="--delay: 0.22s;">
+      A visual home for migration patterns, field-guide species, and live data experiments.
+      Built as a personal project combining web development with real-world ecology.
+    </p>
+
+    <div class="hero-buttons anim" style="--delay: 0.32s;">
+      <a href="#birds" class="btn primary">View Featured Species</a>
+      <a href="#about" class="btn">What this site will do</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-visual">
+      <div class="hero-text anim" style="--delay: 0.4s;">
+        <strong>Track migration with code.</strong><br />
+        This site will grow into a dashboard that pulls migration signals from public
+        datasets and satellite/radar-based tools. The goal: turn peak migration nights
+        into something you can actually see and explore.
+        <div class="hero-migration">
+          Spring &amp; fall migration in North America involves billions of birds moving
+          under cover of darkness, riding winds and weather fronts you can watch on maps.
+        </div>
+      </div>
+
+      <div class="hero-glow anim" style="--delay: 0.5s;">
+        <div class="hero-metric">
+          <div class="hero-metric-big" id="migrationEstimate">~2.1M</div>
+          <div class="hero-metric-label">Estimated birds on the move tonight*</div>
+          <div class="hero-metric-sub">
+            *Fictional placeholder number for now — live data experiments coming soon.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="birds">
+      <h2 class="section-title anim" style="--delay: 0.1s;">Featured North American Migrants</h2>
+      <p class="section-sub anim" style="--delay: 0.16s;">
+        A few iconic species that help tell the story of migration. Images are placeholders;
+        future versions can link each card to live maps and seasonal status.
+      </p>
+
+      <div class="bird-grid">
+        <article class="bird-card anim" style="--delay: 0.18s;">
+          <img src="https://images.pexels.com/photos/45911/pexels-photo-45911.jpeg?auto=compress&cs=tinysrgb&w=1200"
+               alt="Canada Goose flying in formation" />
+          <div class="bird-body">
+            <div class="bird-name">Canada Goose</div>
+            <div class="bird-region">Arctic &amp; Canada ⇄ United States</div>
+            <div class="bird-text">
+              Famous V-formations and loud calls. Many populations now winter in
+              temperate cities and migrate shorter distances than they used to.
+            </div>
+          </div>
+        </article>
+
+        <article class="bird-card anim" style="--delay: 0.24s;">
+          <img src="https://images.pexels.com/photos/158471/bird-crane-flight-nature-158471.jpeg?auto=compress&cs=tinysrgb&w=1200"
+               alt="Sandhill Cranes in flight" />
+          <div class="bird-body">
+            <div class="bird-name">Sandhill Crane</div>
+            <div class="bird-region">Great Plains ⇄ Mexico &amp; Gulf Coast</div>
+            <div class="bird-text">
+              Massive flocks funnel through key stopover sites. Their bugling calls and
+              circling kettles make migration visible and loud.
+            </div>
+          </div>
+        </article>
+
+        <article class="bird-card anim" style="--delay: 0.3s;">
+          <img src="https://images.pexels.com/photos/209289/pexels-photo-209289.jpeg?auto=compress&cs=tinysrgb&w=1200"
+               alt="American Robin perched on a branch" />
+          <div class="bird-body">
+            <div class="bird-name">American Robin</div>
+            <div class="bird-region">Across North America</div>
+            <div class="bird-text">
+              A familiar backyard bird whose arrival and dawn song signal spring for
+              much of the continent.
+            </div>
+          </div>
+        </article>
+
+        <article class="bird-card anim" style="--delay: 0.36s;">
+          <img src="https://images.pexels.com/photos/870798/pexels-photo-870798.jpeg?auto=compress&cs=tinysrgb&w=1200"
+               alt="Snow Geese flock over water" />
+          <div class="bird-body">
+            <div class="bird-name">Snow Goose</div>
+            <div class="bird-region">High Arctic ⇄ Southern US &amp; Mexico</div>
+            <div class="bird-text">
+              Enormous white flocks that turn marshes and fields into moving clouds
+              during peak migration.
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="about">
+      <h2 class="section-title anim" style="--delay: 0.16s;">Where this project is going</h2>
+      <p class="section-sub anim" style="--delay: 0.22s;">
+        This is version 1: a static front page with animated text and sample species.
+        Next steps include embedding live migration maps, pulling data from public APIs,
+        and building a small database that tracks seasonal status by region.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> MigrationWatch • Built by Daniel
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Tiny fake "live" estimate just to make the number feel dynamic
+    const base = 2.1;
+    const jitter = (Math.random() * 0.4 - 0.2).toFixed(1);
+    const est = (base + parseFloat(jitter)).toFixed(1);
+    document.getElementById("migrationEstimate").textContent = `~${est}M`;
+  </script>
+</body>
+</html>
